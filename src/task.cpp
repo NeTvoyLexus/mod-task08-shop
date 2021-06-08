@@ -62,19 +62,19 @@ void Shop::Start()
 
 
 	avgwait /= static_cast<double>(numbtrue);
-	avgbuy /= static_cast<double>(numbtrue);
+	avgtimebuy /= static_cast<double>(numbtrue);
 	avgwaitbuyer /= static_cast<double>(numbthreads);
 	avgwork /= static_cast<double>(numbthreads);
 	cout << "Обслуженные покупатели: " << numbtrue << endl;
 	cout << "Необслуженные покупатели: " << numbfalse << endl;
 	cout << "Среднее время нахождения в очереди: " << avgwait << endl;
-	cout << "Среднее время на кассе: " << avgbuy << endl;
+	cout << "Среднее время на кассе: " << avgtimebuy << endl;
 	cout << "Среднее время работы кассы: " << avgwork << endl;
 	cout << "Среднее время простоя кассы: " << avgwaitbuyer << endl;
 
 
 	double l = 100. / avgbuyer;	
-	double nu = 100. / avgbuy;
+	double nu = 100. / avgtimebuy;
 	double ro = l / nu;
 	double P0 = 1.;
 	for (int i = 1; i <= numbthreads; ++i)
@@ -123,7 +123,7 @@ void Shop::Work()
 		}
 		m.lock();
 		avgwork += numbbuy * Time;
-		avgbuy += numbbuy * Time;
+		avgtimebuy += numbbuy * Time;
 		cout << numbtrue + numbfalse + 1 << endl;
 		++numbtrue;
 		m.unlock();
